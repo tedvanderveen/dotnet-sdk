@@ -537,11 +537,20 @@ namespace Dapr.Client.Test
         public async Task InvokeMethodAsync_CanInvokeMethodWithResponseHeaders_ServerThrowsRpcException()
         {
             // Configure Client
-            var mockDaprClient = new MockAutoDaprClient();
-            var fakeResponse = new Mock<AsyncUnaryCall<Autogen.Grpc.v1.InvokeResponse>>();
-            mockDaprClient.Client.Setup(m => m.InvokeServiceAsync(It.IsAny<Autogen.Grpc.v1.InvokeServiceRequest>(), It.IsAny<CallOptions>())).Returns(fakeResponse);
+            var client = new MockClient();
 
-            var daprClient = new DaprClientGrpc(mockDaprClient, null, null);
+            var response = 
+                client.Call<InvokeResponse>()
+                .SetResponse( /* stuff here */ null)
+                .AddHeader("some-header", "some-value")
+                .Build();
+
+            // If you want, you can make this a method on MockClient for reuse.
+            client.Mock
+                .Setup(m => m.InvokeServiceAsync(It.IsAny<Autogen.Grpc.v1.InvokeServiceRequest>(), It.IsAny<CallOptions>()))
+                .Returns(response);
+
+            var daprClient = client.DaprClient;
                 
             // daprClient.When(InvokeMethodWithResponseHeadersAsync<It.IsAnyType, It.IsAnyType>(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Request>())).Throws(new BadImageFormatException());
             // var mockTrailers = new Metadata();
