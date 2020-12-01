@@ -82,7 +82,7 @@ namespace Dapr.Actors.Runtime
             }
 
             // Call the method on the method dispatcher using the Func below.
-            var methodDispatcher = this.methodDispatcherMap.GetDispatcher(actorMessageHeader.InterfaceId, actorMessageHeader.MethodId);
+            var methodDispatcher = this.methodDispatcherMap.GetDispatcher(actorMessageHeader.InterfaceId);
 
             // Create a Func to be invoked by common method.
             async Task<Tuple<string, byte[]>> RequestFunc(Actor actor, CancellationToken ct)

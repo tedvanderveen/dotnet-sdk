@@ -298,7 +298,7 @@ namespace Dapr.Actors.Runtime
                 timerName = $"{this.Id}_Timer_{this.timers.Count + 1}";
             }
 
-            var actorTimer = new ActorTimer(this, timerName, asyncCallback, state, dueTime, period);
+            var actorTimer = new ActorTimer(timerName, asyncCallback, state, dueTime, period);
             var serializedTimer = await actorTimer.SerializeAsync();
             await ActorRuntime.DaprInteractor.RegisterTimerAsync(this.actorTypeName, this.Id.ToString(), timerName, serializedTimer);
 

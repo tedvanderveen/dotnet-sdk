@@ -56,14 +56,14 @@ namespace Dapr.Actors.Test
             return Task.CompletedTask;
         }
 
-        public void SaveTestState()
+        public Task SaveTestState()
         {
-            this.SaveStateAsync().GetAwaiter().GetResult();
+            return this.SaveStateAsync();
         }
 
-        public void ResetTestStateAsync()
+        public Task ResetTestStateAsync()
         {
-            this.ResetStateAsync().GetAwaiter().GetResult();
+            return this.ResetStateAsync();
         }
     }
 }

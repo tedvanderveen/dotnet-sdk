@@ -13,17 +13,13 @@ namespace Dapr.Actors.Runtime
 
     internal class ActorTimer : IActorTimer
     {
-        private readonly Actor owner;
-
         public ActorTimer(
-            Actor owner,
             string timerName,
             Func<object, Task> asyncCallback,
             object state,
             TimeSpan dueTime,
             TimeSpan period)
         {
-            this.owner = owner;
             this.Name = timerName;
             this.AsyncCallback = asyncCallback;
             this.State = state;

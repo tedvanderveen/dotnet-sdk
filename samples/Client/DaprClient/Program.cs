@@ -131,9 +131,11 @@ namespace DaprClient
             var value = new Widget() { Size = "small", Color = "yellow", }; 
             var request1 = new Dapr.StateTransactionRequest("mystate", JsonSerializer.SerializeToUtf8Bytes(value), StateOperationType.Upsert);
             var request2 = new Dapr.StateTransactionRequest("mystate", null, StateOperationType.Delete);
-            var requests = new List<Dapr.StateTransactionRequest>();
-            requests.Add(request1);
-            requests.Add(request2);
+            var requests = new List<Dapr.StateTransactionRequest>
+            {
+                request1,
+                request2
+            };
             Console.WriteLine("Executing transaction - save state and delete state");
             await client.ExecuteStateTransactionAsync(storeName, requests);
             Console.WriteLine("Executed State Transaction!");

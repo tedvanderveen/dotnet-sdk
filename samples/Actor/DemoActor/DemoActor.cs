@@ -66,13 +66,12 @@ namespace DaprDemoActor
             return this.UnregisterReminderAsync("TestReminder");
         }
 
-        public Task ReceiveReminderAsync(string reminderName, byte[] state, TimeSpan dueTime, TimeSpan period)
+        public async Task ReceiveReminderAsync(string reminderName, byte[] state, TimeSpan dueTime, TimeSpan period)
         {
             // This method is invoked when an actor reminder is fired.
-            var actorState = this.StateManager.GetStateAsync<MyData>(StateName).GetAwaiter().GetResult();
-            actorState.PropertyB = $"Reminder triggered at '{DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")}'";
-            this.StateManager.SetStateAsync<MyData>(StateName, actorState);
-            return Task.CompletedTask;
+            var actorState = await this.StateManager.GetStateAsync<MyData>(StateName);
+            actorState.PropertyB = $"Reminder triggered at '{DateTime.Now:yyyy-MM-ddTHH:mm:ss}'";
+            await this.StateManager.SetStateAsync<MyData>(StateName, actorState);
         }
 
         public Task RegisterTimer()
@@ -102,12 +101,11 @@ namespace DaprDemoActor
 
         // This method is called when the timer is triggered based on its registration.
         // It updates the PropertyA value.
-        private Task TimerCallBack(object data)
+        private async Task TimerCallBack(object data)
         {
-            var state = this.StateManager.GetStateAsync<MyData>(StateName).GetAwaiter().GetResult();
-            state.PropertyA = $"Timer triggered at '{DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")}'";
-            this.StateManager.SetStateAsync<MyData>(StateName, state);
-            return Task.CompletedTask;
+            var state = await this.StateManager.GetStateAsync<MyData>(StateName);
+            state.PropertyA = $"Timer triggered at '{DateTime.Now:yyyy-MM-ddTHH:mm:ss}'";
+            await this.StateManager.SetStateAsync<MyData>(StateName, state);
         }
 
         public async Task<AccountBalance> GetAccountBalance()

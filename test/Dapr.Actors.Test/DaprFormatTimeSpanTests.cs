@@ -56,7 +56,6 @@ namespace Dapr.Actors.Test
             static Task<string> SerializeAsync(TimeSpan dueTime, TimeSpan period)
             {
                 var timer = new ActorTimer(
-                    owner: null,
                     timerName: "SomeTimer",
                     asyncCallback: state => Task.CompletedTask,
                     state: Encoding.UTF8.GetBytes("Some state value"),
