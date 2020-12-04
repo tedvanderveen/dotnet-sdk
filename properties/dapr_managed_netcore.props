@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningLevel>4</WarningLevel>
-   </PropertyGroup>
+  </PropertyGroup>
 
   <!-- Cls Compliant -->
   <PropertyGroup>
@@ -59,4 +59,14 @@
     <MinVerDefaultPreReleasePhase>preview</MinVerDefaultPreReleasePhase>
     <!-- <MinVerVerbosity>detailed</MinVerVerbosity>-->
   </PropertyGroup>
+
+  <!-- Configure code analysis and linting -->
+  <PropertyGroup>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+  <ItemGroup>
+    <GlobalAnalyzerConfigFiles Include="$(MSBuildThisFileDirectory).globalconfig>" />
+  </ItemGroup>
+
 </Project>
