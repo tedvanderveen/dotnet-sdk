@@ -124,12 +124,12 @@ namespace Dapr.Actors.Runtime
             using var stream = new MemoryStream();
 
             writer.WriteStartObject();
-            if (value.DueTime != null)
+            if (value.DueTime != default)
             {
                 writer.WriteString("dueTime", ConverterUtils.ConvertTimeSpanValueInDaprFormat(value.DueTime));
             }
 
-            if (value.Period != null && value.Period >= TimeSpan.Zero)
+            if (value.Period != default && value.Period >= TimeSpan.Zero)
             {
                 writer.WriteString("period", ConverterUtils.ConvertTimeSpanValueInDaprFormat(value.Period));
             }

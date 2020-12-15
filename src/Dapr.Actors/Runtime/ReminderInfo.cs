@@ -70,12 +70,12 @@ namespace Dapr.Actors.Runtime
             using Utf8JsonWriter writer = new Utf8JsonWriter(stream);
 
             writer.WriteStartObject();
-            if (this.DueTime != null)
+            if (this.DueTime != default)
             {
                 writer.WriteString("dueTime", ConverterUtils.ConvertTimeSpanValueInDaprFormat(this.DueTime));
             }
 
-            if (this.Period != null)
+            if (this.Period != default)
             {
                 writer.WriteString("period", ConverterUtils.ConvertTimeSpanValueInDaprFormat(this.Period));
             }
